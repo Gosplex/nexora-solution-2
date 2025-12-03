@@ -75,8 +75,8 @@ function App() {
                   whileHover={{ scale: 1.1 }}
                   className="text-base font-medium transition-colors"
                   style={{ color: scrolled ? '#002D3F' : '#002D3F' }}
-                  onMouseEnter={(e) => e.target.style.color = '#0C9BEA'}
-                  onMouseLeave={(e) => e.target.style.color = '#002D3F'}
+                  onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.color = '#0C9BEA'}
+                  onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.color = '#002D3F'}
                 >
                   {link}
                 </motion.a>
