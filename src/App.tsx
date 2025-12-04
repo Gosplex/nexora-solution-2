@@ -1,6 +1,13 @@
 import { useState, useEffect } from 'react';
-import { Phone, Mail, MapPin, Globe, Menu, X, ArrowRight, CheckCircle, Zap, Users, Award, Clock } from 'lucide-react';
+import {
+  Phone, Mail, MapPin, Globe, Menu, X, ArrowRight, CheckCircle, Zap, Users, Award, Clock, Facebook,
+  Twitter,
+  Linkedin,
+  Instagram
+} from 'lucide-react';
 import { motion } from 'framer-motion';
+import logo from '@/assets/logo.png';
+
 
 function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -46,27 +53,31 @@ function App() {
   return (
     <div className="bg-white">
       {/* Navbar */}
+
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
         className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white shadow-lg' : 'bg-transparent'
           }`}
       >
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex justify-between items-center">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              className="flex items-center gap-2"
+            {/* LOGO ONLY – Bigger & Cleaner */}
+            <motion.a
+              href="#home"
+              whileHover={{ scale: 1.06 }}
+              whileTap={{ scale: 0.98 }}
+              className="flex items-center"
             >
-              <div className="w-10 h-10 rounded-lg flex items-center justify-center text-2xl" style={{ background: 'linear-gradient(135deg, #0C9BEA 0%, #002D3F 100%)' }}>
-                <span className="text-white font-bold">N</span>
-              </div>
-              <span className="text-2xl font-bold" style={{ color: '#002D3F' }}>
-                Nexora<span style={{ color: '#0C9BEA' }}>.</span>
-              </span>
-            </motion.div>
+              <img
+                src={logo}
+                alt="Nexora Solution"
+                className="h-14 w-auto sm:h-16 md:h-20 lg:h-24 transition-all duration-300"
+              />
+            </motion.a>
 
-            {/* Desktop Menu */}
+            {/* Desktop Menu - unchanged */}
             <div className="hidden md:flex items-center gap-8">
               {['Home', 'Services', 'Why Us', 'Contact'].map((link) => (
                 <motion.a
@@ -75,17 +86,18 @@ function App() {
                   whileHover={{ scale: 1.1 }}
                   className="text-base font-medium transition-colors"
                   style={{ color: scrolled ? '#002D3F' : '#002D3F' }}
-                  onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.color = '#0C9BEA'}
-                  onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.color = '#002D3F'}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = '#0C9BEA')}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = '#002D3F')}
                 >
                   {link}
                 </motion.a>
               ))}
+
               <motion.a
                 href="#contact"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-6 py-2 rounded-full text-white font-semibold"
+                className="px-6 py-2.5 rounded-full text-white font-semibold shadow-md hover:shadow-xl transition-shadow"
                 style={{ backgroundColor: '#0C9BEA' }}
               >
                 Let's Talk
@@ -95,10 +107,10 @@ function App() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden"
-              style={{ color: '#002D3F' }}
+              className="md:hidden z-10"
+              style={{ color: scrolled ? '#002D3F' : '#002D3F' }}
             >
-              {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+              {mobileMenuOpen ? <X size={30} /> : <Menu size={30} />}
             </button>
           </div>
         </div>
@@ -109,13 +121,14 @@ function App() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white border-t"
+            transition={{ duration: 0.3 }}
+            className="md:hidden bg-white border-t border-gray-200"
           >
             {['Home', 'Services', 'Why Us', 'Contact'].map((link) => (
               <a
                 key={link}
                 href={`#${link.toLowerCase().replace(' ', '')}`}
-                className="block py-4 px-6 font-medium"
+                className="block py-5 px-8 text-lg font-medium hover:bg-gray-50 transition-colors"
                 style={{ color: '#002D3F' }}
                 onClick={() => setMobileMenuOpen(false)}
               >
@@ -340,37 +353,71 @@ function App() {
       </section>
 
       {/* Contact Footer */}
-      <footer id="contact" className="py-16 px-6 text-white" style={{ backgroundColor: '#002D3F' }}>
+      <footer id="contact" className="py-16 px-6 text-white" style={{ backgroundColor: '#0F6CA1' }}>
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
+
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <div className="w-10 h-10 rounded-lg flex items-center justify-center text-2xl" style={{ backgroundColor: '#0C9BEA' }}>
                   <span className="font-bold">N</span>
                 </div>
-                <span className="text-2xl font-bold">
-                  Nexora<span style={{ color: '#0C9BEA' }}>.</span>
+                <span className="text-2x font-bold">
+                  Nexora Solutions<span style={{ color: '#0C9BEA' }}>.</span>
                 </span>
               </div>
-              <p className="text-gray-400 mb-6">
-                Innovative IT solutions that drive your business forward.
+              <p className="text-gray-200 mb-6">
+                The Aura Behind Your Success.
               </p>
-              <div className="flex gap-4">
-                {['f', 't', 'in', 'ig'].map((social) => (
-                  <motion.a
-                    key={social}
-                    href="#"
-                    whileHover={{ scale: 1.2, backgroundColor: '#0C9BEA' }}
-                    className="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center"
-                  >
-                    {social}
-                  </motion.a>
-                ))}
+              <div className="flex gap-5">
+                <motion.a
+                  href="https://facebook.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.2, backgroundColor: '#0C9BEA' }}
+                  className="w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center text-white transition-all"
+                  title="Facebook"
+                >
+                  <Facebook size={22} />
+                </motion.a>
+
+                <motion.a
+                  href="https://twitter.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.2, backgroundColor: '#0C9BEA' }}
+                  className="w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center text-white transition-all"
+                  title="Twitter / X"
+                >
+                  <Twitter size={22} />
+                </motion.a>
+
+                <motion.a
+                  href="https://linkedin.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.2, backgroundColor: '#0C9BEA' }}
+                  className="w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center text-white transition-all"
+                  title="LinkedIn"
+                >
+                  <Linkedin size={22} />
+                </motion.a>
+
+                <motion.a
+                  href="https://instagram.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.2, backgroundColor: '#0C9BEA' }}
+                  className="w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center text-white transition-all"
+                  title="Instagram"
+                >
+                  <Instagram size={22} />
+                </motion.a>
               </div>
             </div>
 
             <div>
-              <h3 className="text-xl font-bold mb-4" style={{ color: '#0C9BEA' }}>Hire Developers</h3>
+              <h3 className="text-xl font-bold mb-4 text-white">Hire Developers</h3>
               <ul className="space-y-2">
                 {[
                   "Hire Flutter Developer",
@@ -384,7 +431,7 @@ function App() {
                   "Hire Digital Marketer"
                 ].map((item) => (
                   <li key={item}>
-                    <a href="#contact" className="text-gray-400 hover:text-white transition">
+                    <a href="#contact" className="text-gray-200 hover:text-white transition">
                       {item}
                     </a>
                   </li>
@@ -393,12 +440,12 @@ function App() {
             </div>
 
             <div>
-              <h3 className="text-xl font-bold mb-4" style={{ color: '#0C9BEA' }}>Services</h3>
+              <h3 className="text-xl font-bold mb-4 text-white">Services</h3>
               <ul className="space-y-2">
                 {["Mobile Apps", "Web Dev", "UI/UX Design", "Marketing", "IT Staffing"].map((item) => (
                   <li key={item}>
-                    <a href="#services" className="text-gray-400 hover:text-white transition flex items-center gap-2">
-                      <CheckCircle size={16} style={{ color: '#0C9BEA' }} /> {item}
+                    <a href="#services" className="text-gray-200 hover:text-white transition flex items-center gap-2">
+                      <CheckCircle size={16} style={{ color: '#FFFFFF' }} /> {item}
                     </a>
                   </li>
                 ))}
@@ -406,11 +453,11 @@ function App() {
             </div>
 
             <div>
-              <h3 className="text-xl font-bold mb-4" style={{ color: '#0C9BEA' }}>Company</h3>
+              <h3 className="text-xl font-bold mb-4 text-white">Company</h3>
               <ul className="space-y-2">
                 {["About Us", "Portfolio", "Careers", "Blog", "Privacy"].map((item) => (
                   <li key={item}>
-                    <a href="#" className="text-gray-400 hover:text-white transition">
+                    <a href="#" className="text-gray-200 hover:text-white transition">
                       {item}
                     </a>
                   </li>
@@ -419,33 +466,32 @@ function App() {
             </div>
 
             <div>
-              <h3 className="text-xl font-bold mb-4" style={{ color: '#0C9BEA' }}>Contact</h3>
-              <div className="space-y-3 text-gray-400">
-                <p className="flex items-center gap-3">
-                  <Mail size={18} style={{ color: '#0C9BEA' }} />
-                  info@nexorasolution.com
-                </p>
-                <p className="flex items-center gap-3">
-                  <Phone size={18} style={{ color: '#0C9BEA' }} />
-                  +91 98765 43210
-                </p>
-                <p className="flex items-center gap-3">
-                  <MapPin size={18} style={{ color: '#0C9BEA' }} />
-                  Ahmedabad, Gujarat
-                </p>
-                <p className="flex items-center gap-3">
-                  <Globe size={18} style={{ color: '#0C9BEA' }} />
-                  nexorasolution.com
-                </p>
+              <h3 className="text-xl font-bold mb-6 text-white">Contact</h3>
+
+              <div className="grid grid-cols-[auto_1fr] gap-x-5 gap-y-5 items-start text-gray-200">
+                {/* Icon column ────────────────────── Text column */}
+                <Mail size={18} className="text-white mt-0.5" />
+                <span className="leading-relaxed">info@nexorasolution.com</span>
+
+                <Phone size={18} className="text-white mt-0.5" />
+                <span className="leading-relaxed">+91 98765 43210</span>
+
+                <MapPin size={18} className="text-white mt-0.5" />
+                <span className="leading-relaxed">Ahmedabad, Gujarat</span>
+
+                <Globe size={18} className="text-white mt-0.5" />
+                <span className="leading-relaxed">nexorasolution.com</span>
               </div>
             </div>
+
           </div>
 
-          <div className="border-t border-gray-700 pt-8 text-center text-gray-400">
+          <div className="border-t border-gray-300 pt-8 text-center text-gray-100">
             <p>© 2025 Nexora Solution. All rights reserved. Crafted with ❤️ in India</p>
           </div>
         </div>
       </footer>
+
     </div>
   );
 }
